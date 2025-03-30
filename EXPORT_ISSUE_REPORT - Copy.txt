@@ -21,7 +21,7 @@ Root Cause:
 ------------
 This issue is environmental — likely due to restricted outbound internet access or DNS resolution failure from the sandboxed runtime.
 
-Next Steps to Resolve (Locally):
+Steps to Resolve (Locally):
 --------------------------------
 You can generate the CSV manually on your local machine using the following:
 
