@@ -1,0 +1,40 @@
+EXPORT BLOCKER REPORT – POWER BI PARQUET TO CSV
+
+Issue Summary:
+---------------
+The sentiment analysis pipeline stores aggregated sentiment results in Parquet format for optimal performance and compatibility with distributed data systems.
+
+To generate a Power BI-compatible `.csv` file from the Parquet output, the Python environment must have a Parquet-compatible engine installed, such as:
+- pyarrow
+- fastparquet
+
+Problem Encountered:
+---------------------
+The environment used to generate this report (sandboxed Python execution engine) requires downloading and installing `pyarrow` via pip.
+
+However, the following error occurred:
+> Temporary failure in name resolution
+
+This indicates a network-level issue where the environment could not reach external package repositories to download `pyarrow`.
+
+Root Cause:
+------------
+This issue is environmental — likely due to restricted outbound internet access or DNS resolution failure from the sandboxed runtime.
+
+Next Steps to Resolve (Locally):
+--------------------------------
+You can generate the CSV manually on your local machine using the following:
+
+1. Install the required package:
+   pip install pyarrow
+
+2. Convert Parquet to CSV:
+   ```python
+   import pandas as pd
+   df = pd.read_parquet("storage/aggregated/fake_summary.parquet")
+   df.to_csv("storage/aggregated/sentiment_summary.csv", index=False)
+   ```
+
+Outcome:
+---------
+This limitation is temporary and environment-specific. The exported Parquet file is fully valid and convertible to CSV on any local Python environment.

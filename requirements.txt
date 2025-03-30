@@ -1,0 +1,7 @@
+kafka-python
+pyspark
+textblob
+pandas
+streamlit
+python-dotenv
+sqlite3-binary; sys_platform == "win32"

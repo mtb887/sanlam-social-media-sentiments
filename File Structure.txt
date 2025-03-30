@@ -1,0 +1,39 @@
+sanlam-social-media-sentiments/
+├── ingestion/
+│   ├── twitter_ingest.py          # ✅ Handles Twitter mock data
+│   ├── facebook_ingest.py         # ✅ Handles Facebook mock data
+│   ├── instagram_ingest.py        # ✅ Handles Instagram mock data
+│   ├── linkedin_ingest.py         # ✅ Handles LinkedIn mock data
+│   └── common/
+│       └── producer.py            # ✅ Kafka producer function
+│
+├── processing/
+│   ├── spark_stream.py            # ✅ PySpark real-time consumer
+│   └── aggregator.py              # 🔜 For sentiment summaries
+│
+├── logs/                          # ✅ New: Log files for each platform
+│   ├── facebook_ingest.log
+│   ├── twitter_ingest.log
+│   ├── instagram_ingest.log
+│   ├── linkedin_ingest.log
+│   └── retry_manager.log          # ✅ Retry wrapper log
+│
+├── data/                          # ✅ Mock post data
+│   ├── sample_tweets.json
+│   ├── facebook_posts.json
+│   ├── instagram_posts.json
+│   ├── linkedin_posts.json
+│
+├── storage/
+│   └── output/                    # ✅ Sentiment-scored parquet files
+│
+├── retry_runner/
+│   └── run_with_retry.py          # ✅ New: Retry wrapper script
+│
+├── run_all.py                     # ✅ Launches all ingestion + processing
+├── requirements.txt
+├── docker-compose.yml
+├── .env
+├── .env.example
+├── .gitignore
+├── README.md

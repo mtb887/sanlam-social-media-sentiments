@@ -1,0 +1,29 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres_airflow:/var/lib/postgresql/data
+
+  webserver:
+    image: apache/airflow:2.7.2
+    environment:
+      AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__FERNET_KEY: ''
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    volumes:
+      - .:/opt/airflow/sanlam-social-media-sentiments
+      - ./airflow/dags:/opt/airflow/dags
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    command: bash -c "airflow db init && airflow users create -u airflow -p airflow -r Admin -f First -l Last -e admin@example.com && airflow webserver"
+
+volumes:
+  postgres_airflow:
